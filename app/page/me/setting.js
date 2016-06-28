@@ -14,7 +14,7 @@ export default class setting extends Component {
         return (
             <View style={styles.container}>
                 <Text >
-                    设置界面
+                    这是设置界面
                 </Text>
             </View>
         );
