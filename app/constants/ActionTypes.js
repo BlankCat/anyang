@@ -1,0 +1,1 @@
+export const CHANGE_LOGIN_AUTH = 'CHANGE_LOGIN_AUTH';
