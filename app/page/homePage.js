@@ -79,12 +79,11 @@ export default class homePage extends Component {
                 break;
             case Main_ME:
                 //renderView = <myself />;
-                return <myself />;
-                //return (<View style={styles.container}>
-                //    <Text >
-                //        我的界面
-                //    </Text>
-                //</View>)
+                return (<View style={styles.container}>
+                            <Text >
+                                我的界面
+                            </Text>
+                        </View>)
                 break;
             default:
                 break;
