@@ -40,6 +40,7 @@ export default class homePage extends Component {
 
     render() {
         const {navigator} = this.props;
+        const {route} = this.props;
         return (
 
             <TabNavigator>
@@ -48,7 +49,7 @@ export default class homePage extends Component {
                     title="消息"
                     renderIcon={() => <Image style={styles.tabIcon} source={Main_MSG_NORMAL}/>}
                     renderSelectedIcon={() =><Image style={styles.tabIcon} source={Main_MSG_FOCUS}/>}
-                    onPress={() => {this.setState({ selectedTab: 'Msg' });this.props.route.title='消息'}}>
+                    onPress={() => {this.setState({ selectedTab: 'Msg' });}}>
                     <Msg navigator={this.props.navigator} route={this.props.route}/>
                 </TabNavigator.Item>
                 <TabNavigator.Item
@@ -56,7 +57,7 @@ export default class homePage extends Component {
                     title="发现"
                     renderIcon={() => <Image style={styles.tabIcon} source={Main_FIND_NORMAL}/>}
                     renderSelectedIcon={() =><Image style={styles.tabIcon} source={Main_FIND_FOCUS}/>}
-                    onPress={() => {this.setState({ selectedTab: 'Find' });this.props.route.title='发现' } }>
+                    onPress={() => {this.setState({ selectedTab: 'Find' }); } }>
                     <Find navigator={this.props.navigator} route={this.props.route}/>
                 </TabNavigator.Item>
                 <TabNavigator.Item
@@ -64,7 +65,7 @@ export default class homePage extends Component {
                     title="我"
                     renderIcon={() =><Image style={styles.tabIcon} source={Main_ME_NORMAL}/>}
                     renderSelectedIcon={() => <Image style={styles.tabIcon} source={Main_ME_FOCUS}/>}
-                    onPress={() => {this.setState({ selectedTab: 'Me' });this.props.route.title='我' } }>
+                    onPress={() => {this.setState({ selectedTab: 'Me' }); } }>
                     <Myself navigator={this.props.navigator} route={this.props.route}/>
                 </TabNavigator.Item>
             </TabNavigator>
