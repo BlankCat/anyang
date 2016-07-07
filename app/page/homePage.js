@@ -11,14 +11,14 @@ import {
 } from 'react-native';
 
 
-import TabNavigator from 'react-native-tab-navigator';
+import TabNavigator from 'react-native-tab-navigator'
 
-import msg from './msg/msg';
-import find from './find/find';
-import myself from './me/myself';
-const Main_MSG = '消息';
-const Main_FIND = '发现';
-const Main_ME = '我的';
+import Msg from './msg/msg';
+import Find from './find/find';
+import Myself from './me/myself';
+
+import Config from '../constants/config'
+
 const Main_MSG_NORMAL = require('../imgs/tab/tab_icon_message_normal.png');
 const Main_MSG_FOCUS = require('../imgs/tab/tab_icon_message_selected.png');
 const Main_FIND_NORMAL = require('../imgs/tab/tab_icon_prof_normal.png');
@@ -33,138 +33,55 @@ export default class homePage extends Component {
     // 构造
       constructor(props) {
         super(props);
-          this.state = {selectedTab: Main_MSG, tabBarShow:true};
-          this._renderTabItem =  this._renderTabItem.bind(this);
+          this.state = {
+              selectedTab:Config.initTab
+          };
       }
 
-    /**
-     *img ；默认图标
-     *selectedImg：选中的图标
-     *tag：标题
-     *childView：子控件
-     */
-    _renderTabItem(img, selectedImg, tag, childView) {
-        return (
-                <TabNavigator.Item
-                    selected={this.state.selectedTab === tag}
-                    renderIcon={() => <Image style={styles.tabIcon} source={img}/>}
-                    title={tag}
-                    renderSelectedIcon={() => <Image style={styles.tabIcon} source={selectedImg}/>}
-                    onPress={() => this.setState({ selectedTab: tag })}>
-                    {childView}
-                </TabNavigator.Item>
-
-
-            );
-    }
-
-    _createChildView1(tag) {
-        let renderView;
-        switch (tag) {
-            case Main_MSG:
-                //renderView = <msg />;
-                return (<View style={styles.container}>
-                    <Text >
-                        消息界面
-                    </Text>
-                </View>)
-                break;
-            case Main_FIND:
-                //renderView = <find />;
-                return (<View style={styles.container}>
-                    <Text >
-                        发现界面
-                    </Text>
-                </View>)
-                break;
-            case Main_ME:
-                //renderView = <myself />;
-                return (<View style={styles.container}>
-                            <Text >
-                                我的界面
-                            </Text>
-                        </View>)
-                break;
-            default:
-                break;
-        }
-        //return (<View style={styles.container}>
-        //    <Text >
-        //    我的界面
-        //    </Text>
-        //</View>)
-        //return (<View style={styles.container}>{renderView}</View>)
-        //return (<View style={{flex: 1}}>{renderView}</View>)
-    }
-
-    static _createChildView(tag) {
-        return (
-            <View style={styles.childView}>
-                <Text style={styles.childView_text}>{tag}</Text>
-            </View>
-        )
-    }
-
     render() {
-        let {tabBarShow} = this.state;
-        //console.log(tabBarShow);
+        const {navigator} = this.props;
         return (
-            <View style={styles.container}>
-                <TabNavigator hidesTabTouch={true}
-                              sceneStyle={styles.sceneStyle}
-                              tabBarStyle={tabBarShow ? styles.tabNav : styles.tabNavHide}
-                              overflow={'hidden'} >
-                    {this._renderTabItem(Main_MSG_NORMAL, Main_MSG_FOCUS, Main_MSG,this._createChildView1(Main_MSG))}
-                    {this._renderTabItem(Main_FIND_NORMAL, Main_FIND_FOCUS, Main_FIND,this._createChildView1(Main_FIND))}
-                    {this._renderTabItem(Main_ME_NORMAL, Main_ME_FOCUS, Main_ME,this._createChildView1(Main_ME))}
-                </TabNavigator>
-            </View >
+
+            <TabNavigator>
+                <TabNavigator.Item
+                    selected={this.state.selectedTab === 'Msg'}
+                    title="消息"
+                    renderIcon={() => <Image style={styles.tabIcon} source={Main_MSG_NORMAL}/>}
+                    renderSelectedIcon={() =><Image style={styles.tabIcon} source={Main_MSG_FOCUS}/>}
+                    onPress={() => {this.setState({ selectedTab: 'Msg' });this.props.route.title='消息'}}>
+                    <Msg navigator={this.props.navigator} route={this.props.route}/>
+                </TabNavigator.Item>
+                <TabNavigator.Item
+                    selected={this.state.selectedTab === 'Find'}
+                    title="发现"
+                    renderIcon={() => <Image style={styles.tabIcon} source={Main_FIND_NORMAL}/>}
+                    renderSelectedIcon={() =><Image style={styles.tabIcon} source={Main_FIND_FOCUS}/>}
+                    onPress={() => {this.setState({ selectedTab: 'Find' });this.props.route.title='发现' } }>
+                    <Find navigator={this.props.navigator} route={this.props.route}/>
+                </TabNavigator.Item>
+                <TabNavigator.Item
+                    selected={this.state.selectedTab === 'Me'}
+                    title="我"
+                    renderIcon={() =><Image style={styles.tabIcon} source={Main_ME_NORMAL}/>}
+                    renderSelectedIcon={() => <Image style={styles.tabIcon} source={Main_ME_FOCUS}/>}
+                    onPress={() => {this.setState({ selectedTab: 'Me' });this.props.route.title='我' } }>
+                    <Myself navigator={this.props.navigator} route={this.props.route}/>
+                </TabNavigator.Item>
+            </TabNavigator>
         );
     }
+
+
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    sceneStyle:{
-        paddingBottom: 0
-    },
-    childView:{
-        flex:1,
-        backgroundColor:'#00baff',
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    childView_text:{
-        fontSize:22
-    },
-    tabNav: {
-        height: 60,
-        backgroundColor: '#FFF',
-        alignItems: 'center',
-        borderTopWidth: 0.5,
-        borderTopColor: '#E8E8E8'
-    },
-    tabNavHide: {
-        position: 'absolute',
-        top: Dimensions.get('window').height,
-        height: 0
-    },
-    webview_style:{
-        backgroundColor:'#00ff00',
-    },
-    tab: {
-        height: 60,
-        backgroundColor: '#303030',
-        alignItems: 'center',
-    },
     tabIcon: {
         width: 30,
         height: 30,
         resizeMode: 'stretch',
         marginTop: 12.5
     },
+
 });
 
 

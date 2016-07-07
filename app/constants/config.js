@@ -1,3 +1,4 @@
 export default {
-    inittab:'Main_MSG'
+    initTab:'Msg'
+
 }

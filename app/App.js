@@ -43,7 +43,7 @@ class App extends React.Component {
                     initialRoute={{
                         component: Splash,
                         name: 'splash'
-                 }}
+                    }}
                 />
             </View>
         );
