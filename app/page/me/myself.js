@@ -7,6 +7,7 @@ import {
     ScrollView,
     TouchableOpacity
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 import About from './About';
 export default class myself extends Component {
@@ -43,6 +44,7 @@ export default class myself extends Component {
                         <Text style={{marginLeft:5}}>关于</Text>
                     </View>
                     <View style={styles.item3}>
+                        <Icon name="angle-right" size={25} color="#aaa" />
                     </View>
                 </TouchableOpacity>
             </ScrollView>

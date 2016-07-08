@@ -7,7 +7,12 @@ import com.facebook.react.shell.MainReactPackage;
 import java.util.Arrays;
 import java.util.List;
 
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.imagepicker.ImagePickerPackage; // import package
+import com.oblador.vectoricons.VectorIconsPackage;
+
 public class MainActivity extends ReactActivity {
+
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -34,7 +39,11 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
+            new RNDeviceInfo(),
+            new VectorIconsPackage(),
+            new ImagePickerPackage(),
             new MainReactPackage()
         );
     }
+
 }
