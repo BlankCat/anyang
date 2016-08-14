@@ -1,17 +1,14 @@
 package com.anyang;
 
 import com.facebook.react.ReactActivity;
-import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
 
-import java.util.Arrays;
-import java.util.List;
+import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.imagepicker.ImagePickerPackage; // import package
-import com.oblador.vectoricons.VectorIconsPackage;
+import java.lang.Override;
 
-public class MainActivity extends ReactActivity {
+import cn.jpush.android.api.JPushInterface;
+
+public class MainActivity extends ReactActivity  implements DefaultHardwareBackBtnHandler {
 
 
     /**
@@ -23,27 +20,22 @@ public class MainActivity extends ReactActivity {
         return "anyang";
     }
 
-    /**
-     * Returns whether dev mode should be enabled.
-     * This enables e.g. the dev menu.
-     */
-    @Override
-    protected boolean getUseDeveloperSupport() {
-        return BuildConfig.DEBUG;
-    }
+     @Override
+      protected void onPause() {
+            super.onPause();
+            JPushInterface.onPause(this);
+      }
 
-    /**
-     * A list of packages used by the app. If the app uses additional views
-     * or modules besides the default ones, add more packages here.
-     */
-    @Override
-    protected List<ReactPackage> getPackages() {
-        return Arrays.<ReactPackage>asList(
-            new RNDeviceInfo(),
-            new VectorIconsPackage(),
-            new ImagePickerPackage(),
-            new MainReactPackage()
-        );
-    }
+       @Override
+      protected void onResume() {
+            super.onResume();
+            JPushInterface.onResume(this);
+      }
+
+      @Override
+      protected void onDestroy() {
+            super.onDestroy();
+      }
+
 
 }
